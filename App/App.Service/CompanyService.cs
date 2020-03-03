@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq; 
 using System.IO;
-
+using App.Services.DAL;
 namespace App.Services
 {
     /// <summary>
@@ -12,7 +12,7 @@ namespace App.Services
     {
         public List<Company> GetCompanyList()
         {
-            List<Company> companyList = new List<Company>();
+            var companyList = new List<Company>();
             companyList.Add(new Company()
             {
                 ContactEmail = "test@gmail.com",
@@ -26,6 +26,13 @@ namespace App.Services
                 ContactPhoneNumber = "xxx-xxx-xxxx"
             });
 
+
+
+            using (var companyRepository = new CompanyRepository(new ApplicationDbContext()))
+            {
+                var dbList = companyRepository.GetCompanyList();
+                companyList.AddRange(dbList);
+            }
             return companyList;
         }
     }

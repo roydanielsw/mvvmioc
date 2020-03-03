@@ -53,6 +53,7 @@
     <Compile Include="DAL\CompanyRepository.cs" />
     <Compile Include="CompanyService.cs" />
     <Compile Include="DAL\Context.cs" />
+    <Compile Include="DAL\ICompanyRepository.cs" />
     <Compile Include="ICompanyService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

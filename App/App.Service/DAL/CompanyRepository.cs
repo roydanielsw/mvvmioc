@@ -6,23 +6,24 @@ using App.Models;
 
 namespace App.Services.DAL
 {
-    public class CompanyRepository : IDisposable
-    { 
+    public class CompanyRepository : ICompanyRepository, IDisposable
+    {
+        private ApplicationDbContext context;
 
-        public CompanyRepository()
+        public CompanyRepository(ApplicationDbContext context)
         {
-             
+            this.context = context;
         }
 
         public IEnumerable<Company> GetCompanyList()
         {
-            using (var context = new ApplicationDbContext())
-            {
-                var customer = context.Companies.ToList<Company>();
-                return customer;
-            }
+           return context.Companies.ToList<Company>();
         }
-          
+
+        public void Save()
+        {
+            context.SaveChanges();
+        }
 
         private bool disposed = false;
 
@@ -32,7 +33,7 @@ namespace App.Services.DAL
             {
                 if (disposing)
                 {
-             
+                    context?.Dispose();
                 }
             }
             this.disposed = true;
